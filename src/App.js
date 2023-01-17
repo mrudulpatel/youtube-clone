@@ -1,24 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import { Provider } from "react-redux";
+import "./App.css";
+import Body from "./components/Body";
+import Header from "./components/Header";
+import Sidebar from "./components/Sidebar";
+import { store } from "./redux/store";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import VideoPlayer from "./components/VideoPlayer";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Router>
+        <Provider store={store}>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <>
+                  <div className="flex bg-[#0f0f0f] h-14 text-white">
+                    <Header />
+                  </div>
+                  <div className="bg-[#0f0f0f] h-full overflow-y-auto text-white">
+                    <main className="flex">
+                      <Sidebar />
+                      <Body />
+                    </main>
+                  </div>
+                </>
+              }
+            />
+            <Route path="/watch" element={<VideoPlayer />} />
+          </Routes>
+        </Provider>
+      </Router>
+    </>
   );
 }
 
